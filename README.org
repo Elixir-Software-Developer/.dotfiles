@@ -1,0 +1,14 @@
+#+TITLE: =/home/Elixir-Software-Developer/.dotfiles=
+
+This repo is the home of my custom system configuration which enables a consistent computing experience across multiple machines.  These days I primarily use Arch Linux BTW.
+
+I manage the various configuration files in this repo using [[https://www.gnu.org/software/stow/][GNU Stow]].  This allows me to set up symlinks for all of my user-level configuration using one command:
+
+#+BEGIN_SRC sh
+stow .files/
+
+#+END_SRC
+
+* License
+
+Released under the [[./LICENSE][MIT License]] unless otherwise specified by license files in subfolders.
