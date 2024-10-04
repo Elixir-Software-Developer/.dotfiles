@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+# Directorio de configuración personal privada (no se sincroniza con git)
+mkdir -p ~/.config/personal/env
+
  # Directorio del script actual
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -35,7 +39,9 @@ check_gum() {
 cargar_script "logo.sh"
 cargar_script "colorsBashScript.sh"
 cargar_script "menuPrincipal.sh"
-s
+cargar_script "rf_installer.sh"
+cargar_script "paquetes.sh"
+
 # inicio del script
 
 
@@ -51,10 +57,13 @@ main() {
         echo
 
          case $CHOICE in
-;
             1)
             cargar_script "config_git"
-            mantis ;
+            mantis ;;
+            2)
+            git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+            ~/.fzf/install
+            Instalar_paquetes_cli "${zsh_Install[@]}" ;;
             q) clear && exit ;;
             *)
                 gum style --foreground 50 "Invalid choice. Please select a valid option."

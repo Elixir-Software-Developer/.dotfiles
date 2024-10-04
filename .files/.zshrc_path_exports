@@ -16,10 +16,12 @@ export PATH="$HOME/.local/.npm-global/bin:$PATH"
 export PATH="$HOME/.local/Primeagenscripts/:$PATH"
 export PATH="$HOME/.local/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
-export PATH="$HOME/personal/bin:$PATH"
+# export PATH="$HOME/personal/bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 
-source  ~/.local/share/fzf/key-bindings.zsh
+source  ~/.fzf/shell/key-bindings.zsh
+source  ~/.fzf/shell/completion.zsh
+
 bindkey -s ^t "fzf-file-widget"
 # Ctrl-T: fzf-file-widget
 # Descripción: Abre una interfaz de fzf para buscar y seleccionar archivos y directorios.
@@ -34,7 +36,7 @@ bindkey -s ^r "fzf-history-widget"
 # Ctrl-R: fzf-history-widget
 # Descripción: Abre una interfaz de fzf para buscar y seleccionar comandos desde el historial de comandos. El comando seleccionado se pega en la línea de comandos.
 
-source /usr/share/doc/fzf/examples/completion.zsh
+
 
 export VIM="nvim"
 export DOTFILES=$HOME/.dotfiles
@@ -66,7 +68,7 @@ export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export NOTES_DIR=$HOME/Dropbox/notes
 export PATH=$PATH:$HOME/.spicetify
 export PATH="/opt/brew/bin:$PATH"
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 # -- SYSTEM ENV ----------------------------------------------------------------
 
