@@ -1,5 +1,15 @@
 #!/bin/bash
 
+################################################################################
+# Script: add_to_path_permanent.sh
+# Autor: Roberto Flores
+# Correo: fq211776@alumno.udb.edu.sv
+# GitHub: Elixir-Software-Developer
+# Versión: 1.0
+# Descripción: Script para agregar directorios al PATH de forma recursiva y 
+#              permanente en Zsh.
+################################################################################
+
 # Función para agregar carpetas al PATH de forma recursiva
 add_to_path_recursive() {
     local dir="$1"
