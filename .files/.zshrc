@@ -52,7 +52,6 @@ https://raw.githubusercontent.com/aws/aws-cli/develop/bin/aws_zsh_completer.sh \
 atload'bindkey -M vicmd "k" history-substring-search-up;
 bindkey -M vicmd "j" history-substring-search-down' \
 zsh-users/zsh-history-substring-search \
-
 atload'_zsh_autosuggest_start;
 unset ZSH_AUTOSUGGEST_USE_ASYNC;
 bindkey -v "^ " autosuggest-accept' \
@@ -176,7 +175,7 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-# activate fzf keybindings
+# activate ikeybindings
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
 export FZF_COMPLETION_TRIGGER=''
 export FZF_PREVIEW_COMMAND='cat {}'
@@ -221,7 +220,14 @@ bindkey "^g" fm-invoke
 zle -N ffd-d-invoke _run_ffd_d
 bindkey "\ed" ffd-d-invoke
 
-source <(jj util completion zsh)
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[[3~' delete-char
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -233,3 +239,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export DOCKER_HOST=unix:///var/run/docker.sock
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
