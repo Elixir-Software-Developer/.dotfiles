@@ -41,7 +41,7 @@ cargar_script "colorsBashScript.sh"
 cargar_script "menuPrincipal.sh"
 cargar_script "rf_installer.sh"
 cargar_script "paquetes.sh"
-
+cargar_script "dbox.sh"
 # inicio del script
 
 
@@ -64,6 +64,8 @@ main() {
             git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
             ~/.fzf/install
             Instalar_paquetes_cli "${zsh_Install[@]}" ;;
+            3) Instalar_paquetes_cli "${docker_Install[@]}"
+                configure_docker ;;
             q) clear && exit ;;
             *)
                 gum style --foreground 50 "Invalid choice. Please select a valid option."
