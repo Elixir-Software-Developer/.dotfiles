@@ -244,3 +244,11 @@ export DOCKER_HOST=unix:///var/run/docker.sock
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 export DOCKER_HOST=unix:///var/run/docker.sock
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+export PATH="/home/elixir_software_developer/.dotfiles/.files/.bin:$PATH"
+export PATH="/home/elixir_software_developer/.dotfiles/.files/.bin/copied_from_others:$PATH"
+export PATH="/home/elixir_software_developer/.dotfiles/.files/.bin/copied_from_others/library_thePrimeagen:$PATH"
+export PATH="/home/elixir_software_developer/.dotfiles/.files/.bin/created_by_me:$PATH"
+export PATH="/home/elixir_software_developer/.dotfiles/.files/.bin/created_by_me/utility_scripts:$PATH"
+export PATH="/home/elixir_software_developer/.dotfiles/.files/.bin/experimental:$PATH"
