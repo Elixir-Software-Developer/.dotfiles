@@ -243,3 +243,4 @@ export DOCKER_HOST=unix:///var/run/docker.sock
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
+export DOCKER_HOST=unix:///var/run/docker.sock
