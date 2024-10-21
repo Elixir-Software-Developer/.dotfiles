@@ -1,0 +1,47 @@
+#!/bin/bash
+
+cargar_script() {
+    # Directorio del script actual
+    local SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+    # Directorio que contiene los scripts a llamar (relativo al script actual)
+    local SCRIPTS_DIR="$(dirname "$SCRIPT_DIR")/bin/created_by_me/utility_scripts"
+
+    local script_path="$SCRIPTS_DIR/$1"
+
+    if [[ -f "$script_path" ]]; then
+        source "$script_path"
+    else
+        echo "Error: El script '$1' no se encontró en $SCRIPTS_DIR"
+        exit 1
+    fi
+}
+
+
+# get dir of the current script and cd in it
+SDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd) && cd "$SDIR" || exit 1
+
+
+export -f cargar_script
+
+# show usage
+usage() { echo "Usage: $(basename "$0") <module> [module]..." >&2; }
+
+# simple log printer
+loginfo() { printf "%b[info]%b %s\n" '\e[0;32m\033[1m' '\e[0m' "$@" >&2; }
+logerro() { printf "%b[erro]%b %s\n" '\e[0;31m\033[1m' '\e[0m' "$@" >&2; }
+
+[[ "$#" -lt 1 ]] && usage && exit 1
+
+# install a module
+install_module() {
+    local module="$1"
+    loginfo "install $module config ..."
+    [[ ! -f "$module/setup.sh" ]] && logerro "$module config not found!" && return 2
+    "$module/setup.sh"            && loginfo "$module config installed successfully!"
+}
+
+# install every specified modules
+for module in "$@"; do
+    install_module "${module%/}"
+done
