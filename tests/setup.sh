@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# set -euo pipefail
-
 # Cargar scripts necesarios
 SDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd) && cd "$SDIR" || exit 1
 cargar_script "common_functions.sh"
@@ -9,11 +7,11 @@ cargar_script "common_functions.sh"
 # Create test files and folders
 create_test_files() {
     # Create test file in $HOME
-    echo "Test file in $HOME" > ~/test_file_home.txt
+    echo "Test file in $HOME" >~/test_file_home.txt
 
     # Create test file in $HOME/.config/
     mkdir -p ~/.config/test_config
-    echo "Test file in $HOME/.config/" > ~/.config/test_file_config.txt
+    echo "Test file in $HOME/.config/" >~/.config/test_file_config.txt
 
     # Create test folder in $HOME/.config/
     mkdir -p ~/.config/test_folder_config
@@ -37,8 +35,7 @@ test_backup() {
     # Test backup_file
     echo "Testing backup file in $HOME"
     backup_file_in_home test_file_home.txt
- echo "..............................................."
-
+    echo "..............................................."
 
     # Test backup_file_config
     echo "Testing backup file in $HOME/.config/..."
@@ -66,4 +63,4 @@ main() {
 }
 
 # Run main function
- main
+main

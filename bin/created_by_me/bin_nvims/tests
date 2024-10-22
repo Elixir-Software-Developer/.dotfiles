@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+rm -rf ~/.local/share/nvim-tests
+rm -rf ~/.config/nvim-tests
+
+mkdir -p ~/.config/nvim-tests
+# cp -r /home/elixir-software-developer/Dropbox/github.com/Elixir-Software-Developer/nvim_new/* ~/.config/nvim-tests/
+
+# Directorio de origen
+src_dir="$HOME/.config/nvim"
+
+# Directorio de destino
+dest_dir="$HOME/.config/nvim-tests"
+
+# Crear el directorio de destino si no existe
+mkdir -p "$dest_dir"
+
+# Copiar archivos y directorios visibles
+cp -r "$src_dir"/* "$dest_dir/"
+
+# Copiar archivos y directorios ocultos, excluyendo . y ..
+for item in "$src_dir"/.*; do
+    if [ "$item" != "$src_dir/." ] && [ "$item" != "$src_dir/.." ]; then
+        cp -r "$item" "$dest_dir/"
+    fi
+done
+
+export NVIM_APPNAME="nvim-tests"
+exec -a "$NVIM_APPNAME" nvim -u "$HOME/.config/nvim-tests/init.lua" "$@"

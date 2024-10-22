@@ -67,11 +67,33 @@ backup_folder_config() {
     fi
 }
 
+# # Function to backup a folder in $HOME
+# backup_folder_home() {
+#     local folder_to_backup="$1"
+#     if [ -d "$HOME/$folder_to_backup" ]; then
+#         mv "$HOME/$folder_to_backup" "$backup_folder/${folder_to_backup}_$date" 2>> RiceError.log
+#         if [ $? -eq 0 ]; then
+#             printf "%s%s       ~/%s folder backed up successfully at %s%s/%s_%s%s\n\n" "${BLD}" "${CGR}" "$folder_to_backup" "${CBL}" "$backup_folder" "$folder_to_backup" "$date" "${CNC}"
+#         else
+#             printf "%s%sFailed to backup ~/%s folder. See %sRiceError.log%s\n\n" "${BLD}" "${CRE}" "$folder_to_backup" "${CBL}" "${CNC}"
+#         fi
+#     else
+#         printf "%s%s       ~/%s folder does not exist, %sno backup needed%s\n\n" "${BLD}" "${CGR}" "$folder_to_backup" "${CYE}" "${CNC}"
+#     fi
+# }
+
+
 # Function to backup a folder in $HOME
+# example: backup_folder_in_home "bin/created_by_me/bin_nvims2"
 backup_folder_home() {
     local folder_to_backup="$1"
+    local backup_path="$backup_folder/${folder_to_backup}_$date"
+
+    # Create the backup directory if it doesn't exist
+    mkdir -p "$backup_path"
+
     if [ -d "$HOME/$folder_to_backup" ]; then
-        mv "$HOME/$folder_to_backup" "$backup_folder/${folder_to_backup}_$date" 2>> RiceError.log
+        mv "$HOME/$folder_to_backup" "$backup_path" 2>> RiceError.log
         if [ $? -eq 0 ]; then
             printf "%s%s       ~/%s folder backed up successfully at %s%s/%s_%s%s\n\n" "${BLD}" "${CGR}" "$folder_to_backup" "${CBL}" "$backup_folder" "$folder_to_backup" "$date" "${CNC}"
         else
@@ -81,7 +103,6 @@ backup_folder_home() {
         printf "%s%s       ~/%s folder does not exist, %sno backup needed%s\n\n" "${BLD}" "${CGR}" "$folder_to_backup" "${CYE}" "${CNC}"
     fi
 }
-
 
 backup_folder_in_config(){
 # Initialize backup
@@ -118,4 +139,48 @@ init_backup
 # Backup the file
 backup_file_home "$1"
 
+}
+
+
+clone_or_update_repo() {
+    local repo_url=$1
+    local repo_dir=$2
+
+    # Verificar si el repositorio ya está clonado
+    if [ -d "$repo_dir/.git" ]; then
+        echo "El repositorio ya está clonado. Actualizando..."
+        sleep 3
+        cd "$repo_dir" || { echo "Error al acceder al directorio $repo_dir"; exit 1; }
+
+        git fetch --all
+
+        # Detectar la rama principal automáticamente
+        local main_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+
+        if git show-ref --verify --quiet "refs/remotes/origin/$main_branch"; then
+            git reset --hard "origin/$main_branch"
+            git pull "origin" "$main_branch"
+        else
+            echo "La rama '$main_branch' no existe en el repositorio."
+            sleep 3
+            exit 1
+        fi
+        cd - || exit
+    else
+        echo "Clonando el repositorio..."
+        git clone "$repo_url" "$repo_dir" || { echo "Error al clonar el repositorio"; exit 1; }
+        sleep 3
+    fi
+}
+
+install_with_brew() {
+    local package=$1
+
+    # Verificar si el paquete ya está instalado y actualizado
+    if brew list "$package" &>/dev/null && brew outdated --quiet "$package" &>/dev/null; then
+        echo "Warning: $package is already installed and up-to-date."
+      else
+        echo "Installing $package..."
+        brew install "$package"
+    fi
 }

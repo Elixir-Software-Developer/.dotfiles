@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export NVIM_APPNAME="nvim-2k"
+exec -a "$NVIM_APPNAME" nvim -u "$HOME/.config/nvim-2k/init.lua" "$@"

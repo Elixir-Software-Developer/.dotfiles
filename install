@@ -17,10 +17,8 @@ cargar_script() {
     fi
 }
 
-
 # get dir of the current script and cd in it
 SDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd) && cd "$SDIR" || exit 1
-
 
 export -f cargar_script
 
@@ -37,8 +35,10 @@ logerro() { printf "%b[erro]%b %s\n" '\e[0;31m\033[1m' '\e[0m' "$@" >&2; }
 install_module() {
     local module="$1"
     loginfo "install $module config ..."
+    echo ""
     [[ ! -f "$module/setup.sh" ]] && logerro "$module config not found!" && return 2
-    "$module/setup.sh"            && loginfo "$module config installed successfully!"
+    "$module/setup.sh" && loginfo "$module config installed successfully!"
+    echo ""
 }
 
 # install every specified modules
