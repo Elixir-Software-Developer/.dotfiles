@@ -1,0 +1,3 @@
+# Ignorar todos los archivos RiceError.log en cualquier directorio
+**/*RiceError.log
+
