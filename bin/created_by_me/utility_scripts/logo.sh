@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 
-clear
 
 CRE=$(tput setaf 1)
 CYE=$(tput setaf 3)

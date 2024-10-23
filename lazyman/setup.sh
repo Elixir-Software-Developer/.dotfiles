@@ -34,9 +34,6 @@ clone_or_update_repo git@github.com:Elixir-Software-Developer/nvim_new.git $HOME
 logo "Cloning or updating my new personal Neovim configuration under construction."
 clone_or_update_repo git@github.com:Elixir-Software-Developer/nvim.git $HOME/.config/nvim
 
-
-
-
 logo "Next, we will utilize LazyMan to initialize multiple Neovim configurations."
 
 while true; do

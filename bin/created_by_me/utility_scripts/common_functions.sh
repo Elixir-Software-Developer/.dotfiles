@@ -167,7 +167,9 @@ clone_or_update_repo() {
         fi
         cd - || exit
     else
+        echo ""
         echo "Clonando el repositorio..."
+        echo ""
         git clone "$repo_url" "$repo_dir" || { echo "Error al clonar el repositorio"; exit 1; }
         sleep 3
     fi
@@ -183,4 +185,15 @@ install_with_brew() {
         echo "Installing $package..."
         brew install "$package"
     fi
+}
+
+function ask_to_continue() {
+    while true; do
+        read -rp "Do you wish to continue? [y/N]: " yn
+        case $yn in
+            [Yy]* ) break ;;  # Si el usuario responde 'y' o 'Y', continúa
+            [Nn]* ) exit 1 ;;  # Si el usuario responde 'n' o 'N', sale del script
+            * ) printf "Error: just write 'y' or 'n'\n\n" ;;
+        esac
+    done
 }

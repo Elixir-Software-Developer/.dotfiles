@@ -38,7 +38,8 @@ install_languages() {
             mix local.hex --force
             ;;
         "Rust")
-            brew install rust
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --help
+            # brew install rust
             ;;
         "Java")
             brew install openjdk
